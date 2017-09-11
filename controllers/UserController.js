@@ -2,18 +2,60 @@ var app = require('../server.js');
 
 module.exports = function(app) {
 
+  var userCollection = app.dao.UserDao;
+
+  var creatingUser = function (userObj, callback){
+    userCollection.insert(userObj, function(err, result){
+      if (err) {
+        console.log("error inserting the data");
+        console.log(err);
+      }
+      callback(err, result);
+    });
+  }
+
+  var gettingAllUsers = function (conditionRequest, callback){
+    userCollection.getAll(function (err, result) {
+        if (err) {
+          console.log("error getting all collections");
+          console.log(err);
+        }
+          callback(err, result);
+    });
+  }
+
   var controller = {
-    users: function(req, res){
-      res.send("All the users")
+    users: function(request, response){
+      var conditionRequest = request.body;
+      gettingAllUsers(conditionRequest, function(err, result){
+        if (err) {
+          response.status(500);
+          response.send('Cannot retrieve the user collection');
+          return;
+        }
+        response.status(200);
+        response.send(result);
+      });
     },
     user: function(req, res){
-      res.send("Unique user")
+      response.send("Unique user")
     },
+
     createUser: function(req, res){
-      res.send("Creating user")
+      var requestBody = request.body;
+      creatingUser(requestBody, function(err, result){
+        if (err){
+          response.status(500);
+          response.send("Request body is not defined");
+          return;
+        }
+        response.status(200);
+        response.send(result);
+      });
     },
+
     deleteUser: function(req, res){
-      res.send("Deleting user")
+      response.send("Deleting user")
     }
   }
   return controller;
