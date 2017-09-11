@@ -1,4 +1,4 @@
-# EXPRESS_EXAMPLE
+# EXPRESS EXAMPLE
 
 Running the project:
 
