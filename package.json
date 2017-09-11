@@ -1,0 +1,15 @@
+{
+  "name": "express_application",
+  "version": "1.0.0",
+  "description": "express application, just an example how to build a REST API with nodejs",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.15.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Carlos / Kamila",
+  "license": "ISC"
+}
