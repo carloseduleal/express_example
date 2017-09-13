@@ -25,7 +25,8 @@ module.exports = function(app) {
   }
 
   var controller = {
-    users: function(request, response){
+    
+    getUsers: function(request, response){
       var conditionRequest = request.body;
       gettingAllUsers(conditionRequest, function(err, result){
         if (err) {
@@ -37,11 +38,11 @@ module.exports = function(app) {
         response.send(result);
       });
     },
-    user: function(req, res){
+    getUser: function(req, res){
       response.send("Unique user")
     },
 
-    createUser: function(req, res){
+    createUser: function(request, response){
       var requestBody = request.body;
       creatingUser(requestBody, function(err, result){
         if (err){
