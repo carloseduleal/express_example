@@ -15,6 +15,8 @@ db.ConnectWithDB(function (err) {
   load('dao').then('controllers').then('routes').into(app);
 });
 
-app.listen(3000, function() {
-  console.log('listening on 3000')
+var server = app.listen(3000, function() {
+  var port = server.address().port;
+  console.log('listening on %s', port)
 })
+module.exports = server;

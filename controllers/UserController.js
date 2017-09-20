@@ -1,10 +1,12 @@
 var app = require('../server.js');
+var User = require('../model/User')
 
 module.exports = function(app) {
 
   var userCollection = app.dao.UserDao;
 
   var creatingUser = function (userObj, callback){
+
     userCollection.insert(userObj, function(err, result){
       if (err) {
         console.log("error inserting the data");
@@ -25,7 +27,7 @@ module.exports = function(app) {
   }
 
   var controller = {
-    
+
     getUsers: function(request, response){
       var conditionRequest = request.body;
       gettingAllUsers(conditionRequest, function(err, result){
@@ -38,25 +40,20 @@ module.exports = function(app) {
         response.send(result);
       });
     },
-    getUser: function(req, res){
-      response.send("Unique user")
-    },
 
     createUser: function(request, response){
       var requestBody = request.body;
       creatingUser(requestBody, function(err, result){
-        if (err){
-          response.status(500);
-          response.send("Request body is not defined");
+        var user = User(requestBody.name, requestBody.age, requestBody.job)
+        if (user.error.length != 0){
+          response.status(400);
+          response.send(user);
           return;
         }
-        response.status(200);
-        response.send(result);
+        response.status(201);
+        user.error = undefined;
+        response.send(user);
       });
-    },
-
-    deleteUser: function(req, res){
-      response.send("Deleting user")
     }
   }
   return controller;

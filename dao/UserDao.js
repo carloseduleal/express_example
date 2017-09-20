@@ -1,7 +1,7 @@
-var database = require('./../database_config/database.js');
-var ObjectId = require('mongodb').ObjectID;
-
 module.exports = function(app){
+
+  var database = require('../database_config/database.js');
+  var ObjectId = require('mongodb').ObjectID;
 
   var userCollection = database.getDb().collection('user');
   var userDao = {
